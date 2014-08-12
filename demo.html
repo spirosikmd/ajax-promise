@@ -18,6 +18,10 @@
     url="data.json"
     handleAs="json"></ajax-promise>
 
+  <template bind="{{data}}">
+    <div>{{promise}}</div>
+  </template>
+
   <script>
   (function() {
     'use strict';
@@ -28,7 +32,11 @@
 
       ajax.request().then(function(response) {
 
-        console.log(JSON.parse(response));
+        var data = JSON.parse(response);
+
+        document.querySelector('template').model = {
+          data: data
+        };
 
       }, function(error) {
 
