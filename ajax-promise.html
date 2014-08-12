@@ -1,0 +1,58 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+
+<!--
+Element that extends core-ajax and provides support for promises.
+
+##### Example
+
+    <ajax-promise></ajax-promise>
+
+@element ajax-promise
+@blurb Element that extends core-ajax and provides support for promises.
+@status alpha
+@homepage https://github.com/spirosikmd/ajax-promise
+-->
+<polymer-element name="ajax-promise" extends="core-ajax" hidden>
+
+  <script>
+
+    Polymer('ajax-promise', {
+
+      /**
+       * The `checkStatus` method will check if status is in the valid statuses for resolve.
+       *
+       * Resolve could be called even on 404 etc so we should check the status.
+       *
+       * @method request
+       * @return {Boolean} Returns true is status is valid for resolve, false otherwise.
+       */
+      checkStatus: function(status) {
+        return [200, 201].indexOf(status) >= 0;
+      },
+
+      /**
+       * The `request` method will return a Promise that will resolve or reject.
+       *
+       * @method request
+       * @return {Promise} Returns a Promise that will either resolve or reject.
+       */
+      request: function() {
+        var _this = this;
+        return new Promise(function(resolve, reject) {
+          var req = _this.go();
+          req.onload = function() {
+            _this.checkStatus(req.status) ? resolve(req.response) : reject(Error(req.statusText));
+          };
+          // Handle network errors
+          req.onerror = function() {
+            reject(Error("Network Error"));
+          };
+        });
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
