@@ -23,18 +23,6 @@ Element that extends core-ajax and provides support for promises.
     Polymer('ajax-promise', {
 
       /**
-       * The `checkStatus` method will check if status is in the valid statuses for resolve.
-       *
-       * Resolve could be called even on 404 etc so we should check the status.
-       *
-       * @method checkStatus
-       * @return {Boolean} Returns true is status is valid for resolve, false otherwise.
-       */
-      checkStatus: function(status) {
-        return [200, 201].indexOf(status) >= 0;
-      },
-
-      /**
        * The `request` method will return a Promise that will resolve or reject.
        *
        * @method request
@@ -43,12 +31,19 @@ Element that extends core-ajax and provides support for promises.
       request: function() {
         var _this = this;
         return new Promise(function(resolve, reject) {
-          var req = _this.go();
-          req.onload = function() {
-            _this.checkStatus(req.status) ? resolve(req.response) : reject(Error(req.statusText));
+          var xhr = _this.go();
+          xhr.onload = function() {
+            // Resolve could be called even on 404 etc so we should check the status.
+            if (_this.isSuccess(xhr)) {
+              var response = _this.evalResponse(xhr);
+              resolve({response: response, xhr: xhr});
+            } else {
+              var response = xhr.status + ': ' + xhr.responseText;
+              reject({response: Error(response), xhr: xhr});
+            }
           };
           // Handle network errors
-          req.onerror = function() {
+          xhr.onerror = function() {
             reject(Error("Network Error"));
           };
         });

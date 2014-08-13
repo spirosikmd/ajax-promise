@@ -32,10 +32,8 @@
 
       ajax.request().then(function(response) {
 
-        var data = JSON.parse(response);
-
         document.querySelector('template').model = {
-          data: data
+          data: response.response
         };
 
       }, function(error) {
