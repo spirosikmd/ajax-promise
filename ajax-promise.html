@@ -6,6 +6,9 @@ The <b>ajax-promise</b> element exposes <b>XMLHttpRequest</b> functionality with
 
 Extends: <a href="http://www.polymer-project.org/docs/elements/core-elements.html#core-ajax" target="_blank">core-ajax</a>
 
+You can still subscribe to <b>core-*</b> events. Support of <b>Promises</b> is enabled only when doing explicit requests,
+and not when <b>auto</b> attribute is used. In this case, you should subscribe to <b>core-*</b> requests.
+
 ##### Example
 
     <ajax-promise

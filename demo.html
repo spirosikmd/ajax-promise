@@ -13,7 +13,6 @@
   <p>An example of using <code>&lt;ajax-promise></code>:</p>
 
   <ajax-promise
-    id="ajax"
     method="GET"
     url="data.json"
     handleAs="json"></ajax-promise>
@@ -28,7 +27,7 @@
 
     document.addEventListener('polymer-ready', function() {
 
-      var ajax = document.querySelector('#ajax');
+      var ajax = document.querySelector('ajax-promise');
 
       ajax.request().then(function(response) {
 
