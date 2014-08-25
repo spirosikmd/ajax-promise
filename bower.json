@@ -1,0 +1,7 @@
+{
+  "name": "ajax-promise#gh-pages",
+  "private": true,
+  "dependencies": {
+    "ajax-promise": "spirosikmd/ajax-promise#master"
+  }
+}
