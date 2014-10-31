@@ -5,7 +5,7 @@
     "Spyros Ioakeimidis <spyrosikmd@gmail.com>"
   ],
   "description": "Element that extends core-ajax and provides support for promises.",
-  "keywords": "ajax, promises",
+  "keywords": ["ajax", "promises"],
   "main": "ajax-promise.html",
   "license": "MIT",
   "homepage": "https://github.com/spirosikmd/ajax-promise/",
